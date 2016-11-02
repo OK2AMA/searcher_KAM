@@ -1,7 +1,0 @@
-#!/usr/bin/env python
-
-# Script for search free places at acomodation fot VUT Brno - KAM.
-
-import irllib2
-
-url = 'http://
