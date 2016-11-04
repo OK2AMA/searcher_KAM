@@ -97,20 +97,5 @@ for floor in range(1, 13):
 print("Pocet obsazenych pokoju:")
 print(len(matches))
 
- 
-# print(url)
-# print(webContent[0:9000])
- 
 
-
-"""
-from urllib2 import urlopen
-
-page = urlopen('http://www.example.com').read()
-
-import re
-pattern = re.compile('^some regex$')
-match = pattern.search(page)
-
-"""
 
