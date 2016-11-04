@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Script fot searching free places at Brno VUT acomodation system,
 # it working only from inside network.
 
-import urllib2
+from urllib.request import urlopen
 import re
 
 url = 'https://www.kn.vutbr.cz/search/index.html?str='
@@ -48,14 +48,21 @@ for floor in range(1, 13):
         build = "B07"
         url_all = url + build + "-" + str(unit)
         
-        response = urllib2.urlopen(url_all)
-        webContent = response.read()
+        data = urlopen(url_all).read()
+        webpage = data.decode("utf-8")
+        # print(html.read())
 
-        matches = re.findall("Pokoj:",webContent)
-        print(url_all)
-        print(full_free_triple_room, one_free_triple_room, two_free_triple_room, three_free_triple_room )
-        if ( room % 2 ):
-            # liche     - dvoujluzkac
+        matches = re.findall("Pokoj", webpage)
+        # print(url_all)
+        # print(full_free_triple_room, one_free_triple_room, two_free_triple_room, three_free_triple_room )
+        if ( room % 100 <= 10 ):
+            room = room - 1;
+           
+        if ( room % 2 ) != 1 :
+            # sude - 
+            if ( room % 100 <= 9 ):
+                room = room + 1;
+
             if len(matches) == 3 :               
                 full_free_triple_room += 1
             if len(matches) == 2 :              
@@ -64,14 +71,27 @@ for floor in range(1, 13):
                 two_free_triple_room += 1
             if len(matches) == 0 :              
                 three_free_triple_room += 1
+            if ( 3 - len(matches)) >= 1  : 
+                print("\nVolne triluzko: ")
+                print(unit)
+                print("   Volnych mist:")
+                print( 3 - len(matches))
         else:    
-            # sude 1216 - trojluzkac
+            # liche dvouluzko
+            if ( room % 100 <= 9 ):
+                room = room + 1;
+
             if len(matches) == 2 :              
                 full_free_triple_room += 1
             if len(matches) == 1 :              
                 one_free_triple_room += 1
             if len(matches) == 0 :              
                 two_free_triple_room += 1
+            if ( 2 - len(matches)) >= 1 : 
+                print("\nVolne dvouluzko: ")
+                print(unit)
+                print("   Volnych mist:")
+                print( 2 - len(matches))
 
 
 print("Pocet obsazenych pokoju:")
