@@ -3,6 +3,7 @@
 # Script fot searching free places at Brno VUT acomodation system,
 # it working only from inside network.
 
+
 from urllib.request import urlopen
 import re
 
